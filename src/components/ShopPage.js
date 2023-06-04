@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "../styles/ShopPage.css"
 
+const order = [];
+
 export const ShopPage = () => {
   const [productList, setProductList] = useState({
     // include img urls too
@@ -29,6 +31,23 @@ export const ShopPage = () => {
       image: ''
     }
   });
+
+  // Sets order array so cart items are rendered in the order that they are added or removed.
+  // useEffect(() => {
+  //   for (let product in productList) {
+  //     if (order.includes(productList[product].name) && productList[product].count < 1) {
+  //       const index = order.indexOf(productList[product].name);
+  //       order.splice(index, 1);
+  //       continue;
+  //     } else if (order.includes(productList[product].name)) {
+  //       continue;
+  //     } else if (productList[product].count < 1) {
+  //       continue;
+  //     } else {
+  //       order.push(productList[product].name);
+  //     }
+  //   }
+  // }, [productList]);
 
   // need to not allow negative product count values
 
@@ -61,6 +80,7 @@ export const ShopPage = () => {
       [productNum]: { ...prevList[productNum], count: prevList[productNum].count - 1 }
     }));
   };
+
 
   return (
     <div id="shop-page">
@@ -116,18 +136,21 @@ const ProductCard = (props) => {
 const ShoppingCart = (props) => {
   const { increment, decrement, list } = props;
 
+  // this needs to know in what order it should render items
   const renderItems = (obj) => {
     const elements = [];
     let i = 1;
 
     for (let product in obj) {
-      if (obj[product].count <= 0) {
+      if (obj[product].count < 1) {
+        i += 1;
         continue;
       };
 
       elements.push(
         <Item key={i} name={obj[product].name} cost={obj[product].cost} count={obj[product].count} increment={increment} decrement={decrement} productNum={i} />
       );
+
       i += 1;
     };
 
