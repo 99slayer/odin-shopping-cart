@@ -3,6 +3,22 @@ import "../styles/ShopPage.css"
 
 const order = [];
 
+// Manages order array so cart items can be rendered in the order that they are added or removed.
+const changeOrder = (list) => {
+  for (let product in list) {
+    if (order.includes(list[product].name) && list[product].count < 1) {
+      const index = order.indexOf(list[product].name);
+      order.splice(index, 1);
+    } else if (order.includes(list[product].name)) {
+      continue;
+    } else if (list[product].count < 1) {
+      continue;
+    } else {
+      order.push(list[product].name);
+    }
+  }
+}
+
 export const ShopPage = () => {
   const [productList, setProductList] = useState({
     // include img urls too
@@ -32,23 +48,6 @@ export const ShopPage = () => {
     }
   });
 
-  // Sets order array so cart items are rendered in the order that they are added or removed.
-  // useEffect(() => {
-  //   for (let product in productList) {
-  //     if (order.includes(productList[product].name) && productList[product].count < 1) {
-  //       const index = order.indexOf(productList[product].name);
-  //       order.splice(index, 1);
-  //       continue;
-  //     } else if (order.includes(productList[product].name)) {
-  //       continue;
-  //     } else if (productList[product].count < 1) {
-  //       continue;
-  //     } else {
-  //       order.push(productList[product].name);
-  //     }
-  //   }
-  // }, [productList]);
-
   // need to not allow negative product count values
 
   // function version that can accout for user input??
@@ -71,7 +70,6 @@ export const ShopPage = () => {
       ...prevList,
       [productNum]: { ...prevList[productNum], count: prevList[productNum].count + 1 }
     }));
-    console.log(productList[productNum]);
   };
 
   const decrementProduct = (productNum) => {
@@ -81,7 +79,6 @@ export const ShopPage = () => {
     }));
   };
 
-
   return (
     <div id="shop-page">
       <ShoppingGrid increment={incrementProduct} decrement={decrementProduct} list={productList} />
@@ -89,8 +86,6 @@ export const ShopPage = () => {
     </div>
   );
 };
-
-
 
 const ShoppingGrid = (props) => {
   const { increment, decrement, list } = props;
@@ -122,7 +117,7 @@ const ProductCard = (props) => {
       <img alt="" />
       <div>
         <p>{name}</p>
-        <p>{cost}</p>
+        <p>{(cost).toFixed(2)}</p>
         <div>
           <button onClick={() => decrement(productNum)}>-</button>
           <input value={count}></input>
@@ -136,30 +131,31 @@ const ProductCard = (props) => {
 const ShoppingCart = (props) => {
   const { increment, decrement, list } = props;
 
-  // this needs to know in what order it should render items
   const renderItems = (obj) => {
+    changeOrder(list);
     const elements = [];
     let i = 1;
 
-    for (let product in obj) {
-      if (obj[product].count < 1) {
-        i += 1;
-        continue;
-      };
+    while (elements.length !== order.length) {
+      for (let product in obj) {
+        if (obj[product].name !== order[i - 1]) {
+          continue;
+        } else {
+          elements.push(
+            <Item key={product} name={obj[product].name} cost={obj[product].cost} count={obj[product].count} increment={increment} decrement={decrement} productNum={product} />
+          );
 
-      elements.push(
-        <Item key={i} name={obj[product].name} cost={obj[product].cost} count={obj[product].count} increment={increment} decrement={decrement} productNum={i} />
-      );
+          i += 1;
+        }
+      }
+    }
 
-      i += 1;
-    };
+    return elements;
+  };
 
-    return elements
-  }
   return (
     <div id="shopping-cart">
       <h2 id="cart-heading">CART</h2>
-      {/* I WANT ITEMS TO BE DISPLAYED IN THE ORDER THAT THEY'VE BEEN ADDED AND REMOVED */}
       <div id="item-cont">
         {renderItems(list)}
       </div>
