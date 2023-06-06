@@ -15,13 +15,12 @@ const changeOrder = (list) => {
       continue;
     } else {
       order.push(list[product].name);
-    }
-  }
-}
+    };
+  };
+};
 
 export const ShopPage = () => {
   const [productList, setProductList] = useState({
-    // include img urls too
     1: {
       name: 'product 1',
       cost: 30.00,
@@ -48,54 +47,65 @@ export const ShopPage = () => {
     }
   });
 
-  // need to not allow negative product count values
-
-  // function version that can accout for user input??
-  // const incrementProduct = (productNum, input = null) => {
-  //   if (input) {
-  //     setProductList(prevList => ({
-  //       ...prevList,
-  //       [productNum]: { ...prevList[productNum], count: input }
-  //     }));
-  //   } else {
-  //     setProductList(prevList => ({
-  //     ...prevList,
-  //     [productNum]: { ...prevList[productNum], count: prevList[productNum].count + 1 }
-  //     }));
-  //   }
-  // };
-
   const incrementProduct = (productNum) => {
+    if (productList[productNum].count === 999) {
+      return;
+    };
+
     setProductList(prevList => ({
       ...prevList,
-      [productNum]: { ...prevList[productNum], count: prevList[productNum].count + 1 }
+      [productNum]: { ...prevList[productNum], count: parseInt(prevList[productNum].count + 1) }
     }));
   };
 
   const decrementProduct = (productNum) => {
     setProductList(prevList => ({
       ...prevList,
-      [productNum]: { ...prevList[productNum], count: prevList[productNum].count - 1 }
+      [productNum]: { ...prevList[productNum], count: parseInt(prevList[productNum].count - 1) }
     }));
   };
 
+  // For dealing with user input.
+  const handleProductInput = (productNum, e) => {
+
+    if (e.target.value.length > 3 && e.target.key !== 'Backspace') {
+      return;
+    };
+
+    if (e.target.value[0] === '0') {
+      let arr = e.target.value.split('');
+      arr.splice(0, 1);
+      e.target.value = arr.join('');
+    };
+
+    if (e.target.value === '') {
+      e.target.value = '0';
+    };
+
+    setProductList(prevList => ({
+      ...prevList,
+      [productNum]: { ...prevList[productNum], count: parseInt(e.target.value) }
+    }));
+  }
+
   return (
     <div id="shop-page">
-      <ShoppingGrid increment={incrementProduct} decrement={decrementProduct} list={productList} />
-      <ShoppingCart increment={incrementProduct} decrement={decrementProduct} list={productList} />
+      <ShoppingGrid increment={incrementProduct} decrement={decrementProduct} inputFunc={handleProductInput} list={productList} />
+      <ShoppingCart increment={incrementProduct} decrement={decrementProduct} inputFunc={handleProductInput} list={productList} />
     </div>
   );
 };
 
 const ShoppingGrid = (props) => {
-  const { increment, decrement, list } = props;
+  const { increment, decrement, inputFunc, list } = props;
+
   const renderCards = (obj) => {
     const elements = [];
     let i = 1
 
     for (let product in obj) {
       elements.push(
-        <ProductCard key={i} name={obj[product].name} cost={obj[product].cost} count={obj[product].count} increment={increment} decrement={decrement} productNum={i} />
+        <ProductCard key={i} name={obj[product].name} cost={obj[product].cost} count={obj[product].count} increment={increment} decrement={decrement} inputFunc={inputFunc} productNum={i} />
       );
       i += 1;
     };
@@ -111,7 +121,16 @@ const ShoppingGrid = (props) => {
 }
 
 const ProductCard = (props) => {
-  const { name, cost, count, increment, decrement, productNum } = props;
+  const { name, cost, count, increment, decrement, inputFunc, productNum } = props;
+
+  const handleKeyDown = (e) => {
+    const validInputs = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'Backspace'];
+
+    if (!validInputs.includes(e.key)) {
+      e.preventDefault();
+    };
+  };
+
   return (
     <div className="product-card">
       <img alt="" />
@@ -120,7 +139,7 @@ const ProductCard = (props) => {
         <p>{(cost).toFixed(2)}</p>
         <div>
           <button onClick={() => decrement(productNum)}>-</button>
-          <input value={count}></input>
+          <input type="number" value={count} maxLength={3} onChange={(e) => { inputFunc(productNum, e) }} onKeyDown={handleKeyDown}></input>
           <button onClick={() => increment(productNum)}>+</button>
         </div>
       </div>
@@ -129,7 +148,7 @@ const ProductCard = (props) => {
 }
 
 const ShoppingCart = (props) => {
-  const { increment, decrement, list } = props;
+  const { increment, decrement, inputFunc, list } = props;
 
   const renderItems = (obj) => {
     changeOrder(list);
@@ -142,7 +161,7 @@ const ShoppingCart = (props) => {
           continue;
         } else {
           elements.push(
-            <Item key={product} name={obj[product].name} cost={obj[product].cost} count={obj[product].count} increment={increment} decrement={decrement} productNum={product} />
+            <Item key={product} name={obj[product].name} cost={obj[product].cost} count={obj[product].count} increment={increment} decrement={decrement} inputFunc={inputFunc} productNum={product} />
           );
 
           i += 1;
@@ -166,7 +185,15 @@ const ShoppingCart = (props) => {
 }
 
 const Item = (props) => {
-  const { name, cost, count, increment, decrement, productNum } = props;
+  const { name, cost, count, increment, decrement, inputFunc, productNum } = props;
+
+  const handleKeyDown = (e) => {
+    const validInputs = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'Backspace'];
+
+    if (!validInputs.includes(e.key)) {
+      e.preventDefault();
+    };
+  };
 
   return (
     <div className="item">
@@ -176,7 +203,7 @@ const Item = (props) => {
       </div>
       <div className="item-count-cont">
         <button onClick={() => decrement(productNum)}>-</button>
-        <input value={count}></input>
+        <input type="number" value={count} maxLength={3} onChange={(e) => { inputFunc(productNum, e) }} onKeyDown={handleKeyDown}></input>
         <button onClick={() => increment(productNum)}>+</button>
       </div>
       <button className="item-delete-btn">X</button>
