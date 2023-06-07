@@ -88,10 +88,20 @@ export const ShopPage = () => {
     }));
   }
 
+  const getTotal = (list) => {
+    let total = 0;
+
+    for (let product in list) {
+      total += list[product].count * list[product].cost;
+    };
+
+    return ((total > 0) ? total : '');
+  }
+
   return (
     <div id="shop-page">
       <ShoppingGrid increment={incrementProduct} decrement={decrementProduct} inputFunc={handleProductInput} list={productList} />
-      <ShoppingCart increment={incrementProduct} decrement={decrementProduct} inputFunc={handleProductInput} list={productList} />
+      <ShoppingCart increment={incrementProduct} decrement={decrementProduct} inputFunc={handleProductInput} totalFunc={getTotal} list={productList} />
     </div>
   );
 };
@@ -148,7 +158,7 @@ const ProductCard = (props) => {
 }
 
 const ShoppingCart = (props) => {
-  const { increment, decrement, inputFunc, list } = props;
+  const { increment, decrement, inputFunc, totalFunc, list } = props;
 
   const renderItems = (obj) => {
     changeOrder(list);
@@ -178,7 +188,7 @@ const ShoppingCart = (props) => {
       <div id="item-cont">
         {renderItems(list)}
       </div>
-      <div id="cart-total-cont">YOUR TOTAL</div>
+      <div id="cart-total">{totalFunc(list)}</div>
       <button id="checkout-btn">CHECKOUT</button>
     </div>
   )
