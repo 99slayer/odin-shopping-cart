@@ -65,6 +65,13 @@ export const ShopPage = () => {
     }));
   };
 
+  const removeProduct = (productNum) => {
+    setProductList(prevList => ({
+      ...prevList,
+      [productNum]: { ...prevList[productNum], count: 0 }
+    }));
+  };
+
   // For dealing with user input.
   const handleProductInput = (productNum, e) => {
 
@@ -95,13 +102,13 @@ export const ShopPage = () => {
       total += list[product].count * list[product].cost;
     };
 
-    return ((total > 0) ? total : '');
-  }
+    return ((total > 0) ? (total).toFixed(2) : '');
+  };
 
   return (
     <div id="shop-page">
       <ShoppingGrid increment={incrementProduct} decrement={decrementProduct} inputFunc={handleProductInput} list={productList} />
-      <ShoppingCart increment={incrementProduct} decrement={decrementProduct} inputFunc={handleProductInput} totalFunc={getTotal} list={productList} />
+      <ShoppingCart increment={incrementProduct} decrement={decrementProduct} removeProduct={removeProduct} inputFunc={handleProductInput} totalFunc={getTotal} list={productList} />
     </div>
   );
 };
@@ -158,7 +165,7 @@ const ProductCard = (props) => {
 }
 
 const ShoppingCart = (props) => {
-  const { increment, decrement, inputFunc, totalFunc, list } = props;
+  const { increment, decrement, removeProduct, inputFunc, totalFunc, list } = props;
 
   const renderItems = (obj) => {
     changeOrder(list);
@@ -171,7 +178,7 @@ const ShoppingCart = (props) => {
           continue;
         } else {
           elements.push(
-            <Item key={product} name={obj[product].name} cost={obj[product].cost} count={obj[product].count} increment={increment} decrement={decrement} inputFunc={inputFunc} productNum={product} />
+            <Item key={product} name={obj[product].name} cost={obj[product].cost} count={obj[product].count} increment={increment} decrement={decrement} removeProduct={removeProduct} inputFunc={inputFunc} productNum={product} />
           );
 
           i += 1;
@@ -188,6 +195,7 @@ const ShoppingCart = (props) => {
       <div id="item-cont">
         {renderItems(list)}
       </div>
+      {/* can the getTotal function be moved to this component? */}
       <div id="cart-total">{totalFunc(list)}</div>
       <button id="checkout-btn">CHECKOUT</button>
     </div>
@@ -195,7 +203,7 @@ const ShoppingCart = (props) => {
 }
 
 const Item = (props) => {
-  const { name, cost, count, increment, decrement, inputFunc, productNum } = props;
+  const { name, cost, count, increment, decrement, removeProduct, inputFunc, productNum } = props;
 
   const handleKeyDown = (e) => {
     const validInputs = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'Backspace'];
@@ -216,7 +224,7 @@ const Item = (props) => {
         <input type="number" value={count} maxLength={3} onChange={(e) => { inputFunc(productNum, e) }} onKeyDown={handleKeyDown}></input>
         <button onClick={() => increment(productNum)}>+</button>
       </div>
-      <button className="item-delete-btn">X</button>
+      <button type="button" className="item-delete-btn" onClick={() => removeProduct(productNum)}>X</button>
     </div>
   )
 }
