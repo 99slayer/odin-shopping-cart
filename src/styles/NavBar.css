@@ -1,13 +1,20 @@
-#nav-bar{
+#nav-bar {
   padding: 0px 10px 0px 10px;
+  height: 60px;
   margin-bottom: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 2px solid black;
+  color: rgb(4, 0, 36);
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  border: 1px solid rgb(170, 170, 170);
+  border-radius: 6px;
+  background-color: white;
 }
-/* #heading{} */
-#nav-links{
+#heading {
+  font-size: 3.2em;
+}
+#nav-links {
   display: flex;
   gap: 10px;
 }

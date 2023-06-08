@@ -1,38 +1,103 @@
-ul,li{
+ul,
+li {
   list-style: none;
 }
-#homepage{
+#home-page {
+  flex: 1;
+  height: 100vh;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+  /* border: 2px solid black; */
+}
+#product-display {
+  flex: 1;
+  padding: 10px;
+  display: flex;
+  justify-content: flex start;
+  gap: 10px;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  border-radius: 6px;
+  /* border: 2px solid black; */
+}
+#product-display img {
+  width: 400px;
+  height: 400px;
+  border: 1px solid rgb(196, 196, 196);
+  border-radius: 6px;
+}
+#product-display p {
+  flex: 1;
+  padding: 10px;
+  font-size: 3em;
+  border: 1px solid rgb(196, 196, 196);
+  border-radius: 6px;
+  background-color: white;
+}
+/* #display-cont {
+  flex: 1;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+} */
+#reviews {
+  flex: 1;
+  padding: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  border-radius: 6px;
+  /* border: 2px solid black; */
+}
+#review-header {
+  padding: 6px 0px 6px 10px;
+  font-size: 2.2em;
+  /* text-align: center; */
+  border: 1px solid rgb(196, 196, 196);
+  border-radius: 6px;
+  background-color: white;
+}
+#review-cont {
+  height: 180px;
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+}
+.review-column {
+  padding: 10px;
+  font-size: 2em;
+  border: 1px solid rgb(196, 196, 196);
+  border-radius: 6px;
+  background-color: white;
+}
+#about {
   flex: 1;
   padding: 10px;
   display: flex;
   flex-direction: column;
   align-items: stretch;
   gap: 10px;
-  border: 2px solid black;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  border-radius: 6px;
 }
-#product-display{
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  border: 2px solid black;
+#about-header {
+  padding: 6px 0px 6px 10px;
+  font-size: 2.2em;
+  border: 1px solid rgb(196, 196, 196);
+  border-radius: 6px;
+  background-color: white;
 }
-#display-cont{
-  flex: 1;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-}
-.product-image{
-  /* flex: 1; */
-  height: 220px;
-  width: 220px;
-  border: 2px solid black;
-}
-#reviews{
-  flex: 1;
-  border: 2px solid black;
-}
-#about{
-  flex: 1;
-  border: 2px solid black;
+#about-text {
+  padding: 10px;
+  font-size: 2.2em;
+  border: 1px solid rgb(196, 196, 196);
+  border-radius: 6px;
+  background-color: white;
 }

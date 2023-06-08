@@ -1,15 +1,30 @@
-*{
+* {
   padding: 0px;
   margin: 0px;
   box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
 }
-body{
+body {
   display: flex;
   min-height: 100vh;
+  background-color: rgb(217, 224, 236);
 }
-#root{
+#root {
   flex: 1;
   display: flex;
   flex-direction: column;
   padding: 10px;
+}
+
+/* ??? */
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type='number'] {
+  -moz-appearance: textfield;
 }
