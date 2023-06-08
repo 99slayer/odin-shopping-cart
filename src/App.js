@@ -1,7 +1,7 @@
-import './styles/App.css';
-import React from 'react';
-import { NavBar } from './components/NavBar';
-import { Outlet } from 'react-router-dom';
+import React from "react";
+import "./styles/App.css";
+import { NavBar } from "./components/NavBar";
+import { Outlet } from "react-router-dom";
 
 //This is the base page layout**
 const App = () => {
@@ -11,6 +11,6 @@ const App = () => {
       <Outlet />
     </>
   );
-}
+};
 
 export default App;
