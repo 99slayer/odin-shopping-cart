@@ -97,6 +97,10 @@ export const ShopPage = () => {
   };
 
   const decrementProduct = (productNum) => {
+    if (productList[productNum].count === 0) {
+      return;
+    }
+
     setProductList((prevList) => ({
       ...prevList,
       [productNum]: {
