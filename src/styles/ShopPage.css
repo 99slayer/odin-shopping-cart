@@ -1,26 +1,23 @@
 input {
-  /* should grow too */
   padding: 0px 4px 0px 4px;
   width: 40px;
   text-align: center;
 }
 #shop-page {
-  height: 100%;
+  flex: 1;
+  padding: 10px;
   display: flex;
   align-items: flex-start;
   gap: 10px;
-  /* border: 2px solid black; */
 }
 #shopping-grid {
-  /* setup grid overflow */
   flex: 3;
   height: 100%;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
   justify-items: center;
   align-items: center;
   gap: 10px;
-  /* border: 2px solid black; */
 }
 .product-card {
   height: 400px;
@@ -50,20 +47,16 @@ input {
   border-radius: 6px;
   background-color: rgb(255, 255, 255);
 }
-.infobar-hover {
-  /* display: flex;
-  align-items: center; */
-}
 .product-card-name {
   font-size: 1.2em;
   font-weight: 600;
 }
 .product-card-cost {
-  font-size: 1.2em;
+  font-size: 1em;
   margin-left: auto;
 }
 .product-card-count {
-  margin-left: 10px;
+  margin-left: 6px;
   display: flex;
   align-items: center;
   gap: 4px;
@@ -88,6 +81,7 @@ input {
 }
 #shopping-cart {
   flex: 1;
+  min-width: 380px;
   position: sticky;
   top: 10px;
   padding: 10px;
@@ -130,12 +124,14 @@ input {
   gap: 20px;
 }
 .item-name {
+  font-weight: 600;
 }
 .item-cost {
+  font-size: 15px;
   margin-left: auto;
 }
 .item-count-cont {
-  margin-left: 10px;
+  margin-left: 4px;
   display: flex;
   align-items: center;
   gap: 4px;
