@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useOutletContext } from "react-router-dom";
 import "../styles/ShopPage.css";
 
@@ -155,8 +155,6 @@ const ProductCard = (props) => {
     productNum,
   } = props;
 
-  const [hover, setHover] = useState(false);
-
   const handleKeyDown = (e) => {
     const validInputs = [
       "1",
@@ -178,15 +176,11 @@ const ProductCard = (props) => {
   };
 
   return (
-    <div
-      className="product-card"
-      onMouseOver={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
-    >
+    <div className="product-card">
       <img alt="" src={image} />
-      <div className={`${hover ? "infobar-hover" : ""} product-card-infobar`}>
+      <div className="product-card-infobar">
         <p className="product-card-name">{name}</p>
-        <p className="product-card-cost">{cost.toFixed(2)}</p>
+        <p className="product-card-cost">{"$" + cost.toFixed(2)}</p>
         <div className="product-card-count">
           <svg width={20} height={20}>
             <a onClick={() => decrement(productNum)}>
@@ -298,7 +292,7 @@ const Item = (props) => {
   return (
     <div className="item">
       <p className="item-name">{name}</p>
-      <p className="item-cost">{(cost * count).toFixed(2)}</p>
+      <p className="item-cost">{"$" + (cost * count).toFixed(2)}</p>
       <div className="item-count-cont">
         <svg width={20} height={20}>
           <a onClick={() => decrement(productNum)}>

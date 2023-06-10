@@ -7,8 +7,12 @@ export const NavBar = () => {
     <div id="nav-bar">
       <h1 id="heading">TOASTER WAREHOUSE</h1>
       <div id="nav-links">
-        <Link to="/">HOME</Link>
-        <Link to="/shoppage">SHOP</Link>
+        <Link to="/" id="home-link">
+          HOME
+        </Link>
+        <Link to="/shoppage" id="shop-link">
+          SHOP
+        </Link>
       </div>
     </div>
   );

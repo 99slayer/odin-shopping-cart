@@ -62,7 +62,7 @@ function getUnique(arr) {
 }
 
 const ReviewComponent = () => {
-  // could i use a function here when setting the initial reviews to properly get random starting reviews?
+  // could i use a function here when setting the initial reviews to get random starting reviews?
   const [review1, setReview1] = useState(reviewList[0]);
   const [review2, setReview2] = useState(reviewList[1]);
   const [review3, setReview3] = useState(reviewList[2]);
@@ -72,20 +72,20 @@ const ReviewComponent = () => {
       const index = getUnique(currentRevs);
       currentRevs.splice(0, 1, index);
       setReview1(reviewList[index]);
-      // console.log('review 1 changed.');
-    }, 4000);
+      console.log("review 1 changed.");
+    }, 5000);
     setInterval(() => {
       const index = getUnique(currentRevs);
       currentRevs.splice(1, 1, index);
       setReview2(reviewList[index]);
-      // console.log('review 2 changed.');
-    }, 4000);
+      console.log("review 2 changed.");
+    }, 6000);
     setInterval(() => {
       const index = getUnique(currentRevs);
       currentRevs.splice(2, 1, index);
       setReview3(reviewList[index]);
-      // console.log('review 3 changed.');
-    }, 4000);
+      console.log("review 3 changed.");
+    }, 7000);
   }, []);
 
   return (
@@ -111,9 +111,14 @@ const About = () => {
     <div id="about">
       <h2 id="about-header">ABOUT US</h2>
       <p id="about-text">
-        {
-          "Toaster Warehouse was first founded in 1892 in a small town called Loaf Shire. It's founder John Goodenbread had a saying, 'Reasonably quality products at reasonably affordable prices'. This motto continues to guide our company all these years later. From our warehouse to your counter, nothing brings the family together like toast!"
-        }
+        Toaster Warehouse was first founded in 1892 in a small town called Loaf
+        Shire. It's founder John Goodenbread had a saying,
+        <strong id="motto">
+          {" 'Reasonably quality products at reasonably affordable prices.' "}
+        </strong>
+        This motto continues to guide our company all these years later. From
+        our warehouse to your counter, nothing brings the family together like
+        toast!
       </p>
     </div>
   );
