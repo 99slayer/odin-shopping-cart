@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HomePage component matches snapshot 1`] = `
+<div
+  id="home-page"
+>
+  <div
+    id="product-display"
+  >
+    <img
+      alt=""
+      src="toaster-1.jpg"
+    />
+    <p>
+      Introducing the next leap forward in toaster technology! The Toast Master 5000 combines turbo charged industrial strength toast chambers with varied and sophisticated user settings. Toasting the perfect slice has never been easier!
+    </p>
+  </div>
+  <div
+    id="reviews"
+  >
+    <h2
+      aria-label="review header"
+      id="review-header"
+    >
+      SATISFIED CUSTOMER REVIEWS
+    </h2>
+    <ul
+      id="review-cont"
+    >
+      <li
+        className="review-column"
+        id="review-column-1"
+      >
+        "I look forward to breakfast every morning now!"
+      </li>
+      <li
+        className="review-column"
+        id="review-column-2"
+      >
+        "I've spent years looking for the perfect toaster, and now I've found it."
+      </li>
+      <li
+        className="review-column"
+        id="review-column-3"
+      >
+        "These toaster are the best! I don't go anywhere without one!"
+      </li>
+    </ul>
+  </div>
+  <div
+    id="about"
+  >
+    <h2
+      id="about-header"
+    >
+      ABOUT US
+    </h2>
+    <p
+      id="about-text"
+    >
+      Toaster Warehouse was first founded in 1892 in a small town called Loaf Shire. It's founder John Goodenbread had a saying,
+      <strong
+        id="motto"
+      >
+         'Reasonably quality products at reasonably affordable prices.' 
+      </strong>
+      This motto continues to guide our company all these years later. From our warehouse to your counter, nothing brings the family together like toast!
+    </p>
+  </div>
+</div>
+`;
