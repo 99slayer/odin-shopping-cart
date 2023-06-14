@@ -15,7 +15,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --verbose",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -44,6 +44,8 @@
     "eslint-plugin-n": "^16.0.0",
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-react": "^7.32.2",
-    "prettier": "2.8.8"
+    "jest": "^27.5.1",
+    "prettier": "2.8.8",
+    "react-test-renderer": "^18.2.0"
   }
 }
