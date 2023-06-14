@@ -5,7 +5,7 @@ export const HomePage = () => {
   return (
     <div id="home-page">
       <ProductDisplay />
-      <ReviewComponent />
+      <Reviews />
       <About />
     </div>
   );
@@ -61,8 +61,7 @@ function getUnique(arr) {
   }
 }
 
-const ReviewComponent = () => {
-  // could i use a function here when setting the initial reviews to get random starting reviews?
+const Reviews = () => {
   const [review1, setReview1] = useState(reviewList[0]);
   const [review2, setReview2] = useState(reviewList[1]);
   const [review3, setReview3] = useState(reviewList[2]);
@@ -72,25 +71,26 @@ const ReviewComponent = () => {
       const index = getUnique(currentRevs);
       currentRevs.splice(0, 1, index);
       setReview1(reviewList[index]);
-      console.log("review 1 changed.");
     }, 5000);
+
     setInterval(() => {
       const index = getUnique(currentRevs);
       currentRevs.splice(1, 1, index);
       setReview2(reviewList[index]);
-      console.log("review 2 changed.");
-    }, 6000);
+    }, 5000);
+
     setInterval(() => {
       const index = getUnique(currentRevs);
       currentRevs.splice(2, 1, index);
       setReview3(reviewList[index]);
-      console.log("review 3 changed.");
-    }, 7000);
+    }, 5000);
   }, []);
 
   return (
     <div id="reviews">
-      <h2 id="review-header">SATISFIED CUSTOMER REVIEWS</h2>
+      <h2 id="review-header" aria-label="review header">
+        SATISFIED CUSTOMER REVIEWS
+      </h2>
       <ul id="review-cont">
         <li id="review-column-1" className="review-column">
           {review1}
