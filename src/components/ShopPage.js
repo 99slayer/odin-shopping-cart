@@ -83,16 +83,6 @@ export const ShopPage = () => {
     }));
   };
 
-  const getTotal = (list) => {
-    let total = 0;
-
-    for (const product in list) {
-      total += list[product].count * list[product].cost;
-    }
-
-    return total > 0 ? total.toFixed(2) : "";
-  };
-
   return (
     <div id="shop-page">
       <ShoppingGrid
@@ -106,7 +96,6 @@ export const ShopPage = () => {
         decrement={decrementProduct}
         removeProduct={removeProduct}
         inputFunc={handleProductInput}
-        totalFunc={getTotal}
         list={productList}
       />
     </div>
@@ -215,8 +204,7 @@ const ProductCard = (props) => {
 };
 
 const ShoppingCart = (props) => {
-  const { increment, decrement, removeProduct, inputFunc, totalFunc, list } =
-    props;
+  const { increment, decrement, removeProduct, inputFunc, list } = props;
 
   const renderItems = (obj) => {
     changeOrder(list);
@@ -250,15 +238,24 @@ const ShoppingCart = (props) => {
     return elements;
   };
 
+  const getTotal = (list) => {
+    let total = 0;
+
+    for (const product in list) {
+      total += list[product].count * list[product].cost;
+    }
+
+    return total > 0 ? total.toFixed(2) : "";
+  };
+
   return (
     <div id="shopping-cart">
       <h2 id="cart-heading">CART</h2>
       <div id="item-cont">{renderItems(list)}</div>
-      {/* can the getTotal function be moved to this component? */}
       <div
         id="cart-total"
-        className={totalFunc(list) === "" ? "no-total" : ""}
-      >{`TOTAL: $${totalFunc(list)}`}</div>
+        className={getTotal(list) === "" ? "no-total" : ""}
+      >{`TOTAL: $${getTotal(list)}`}</div>
       <button id="checkout-btn">CHECKOUT</button>
     </div>
   );
