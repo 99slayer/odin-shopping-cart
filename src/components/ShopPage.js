@@ -183,11 +183,15 @@ const ProductCard = (props) => {
         <p className="product-card-cost">{"$" + cost.toFixed(2)}</p>
         <div className="product-card-count">
           <svg width={20} height={20}>
-            <a onClick={() => decrement(productNum)}>
+            <a
+              data-testid={`product-card-decrement-${productNum}`}
+              onClick={() => decrement(productNum)}
+            >
               <polygon className="decrement-btn" points="3,10 20,0 20,20" />
             </a>
           </svg>
           <input
+            data-testid={`product-card-input-${productNum}`}
             type="number"
             value={count}
             maxLength={3}
@@ -197,7 +201,10 @@ const ProductCard = (props) => {
             onKeyDown={handleKeyDown}
           ></input>
           <svg width={20} height={20}>
-            <a onClick={() => increment(productNum)}>
+            <a
+              data-testid={`product-card-increment-${productNum}`}
+              onClick={() => increment(productNum)}
+            >
               <polygon className="increment-btn" points="17,10 0,20 0,0" />
             </a>
           </svg>
@@ -290,7 +297,7 @@ const Item = (props) => {
   };
 
   return (
-    <div className="item">
+    <div data-testid={`cart-item-${productNum}`} className="item">
       <p className="item-name">{name}</p>
       <p className="item-cost">{"$" + (cost * count).toFixed(2)}</p>
       <div className="item-count-cont">
@@ -315,6 +322,7 @@ const Item = (props) => {
         </svg>
       </div>
       <button
+        data-testid={`item-delete-btn-${productNum}`}
         type="button"
         className="item-delete-btn"
         onClick={() => removeProduct(productNum)}
